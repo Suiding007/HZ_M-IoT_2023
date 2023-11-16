@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Weather station</title>
+    <link rel="stylesheet" href="static/style.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="static/weather icon.ico">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #g1,
+        #g2 {
+            width: 200px;
+            height: 160px;
+            display: inline-block;
+            margin: 1em;
+        }
+
+        #g3 {
+            width: 200px;
+            height: 160px;
+            display: inline-block;
+            margin: 1em;
+        }
+    </style>
+    <script src="../static/raphael-2.1.4.min.js"></script>
+    <script src="../static/justgage.js"></script>
+</head>
+
+<body>
+    <h1>Weather station data</h1>
+    <div id="g1"></div>
+    <div id="g2"></div>
+    <div id="g3"></div>
+    <hr>
+    <h3> Last Sensors Reading: {{ time }} ==> <a href="/" class="button">REFRESH</a></h3>
+    <hr>
+
+    <script>
+        var g1, g2, g3;
+        document.addEventListener("DOMContentLoaded", function (event) {
+            g1 = new JustGage({
+                id: "g1",
+                value: "{{ temp }}",
+                valueFontColor: "yellow",
+                min: -50,
+                max: 50,
+                title: "Temperature",
+                label: "Celcius"
+            });
+
+            g2 = new JustGage({
+                id: "g2",
+                value: "{{ hum }}",
+                valueFontColor: "yellow",
+                min: 0,
+                max: 100,
+                title: "Humidity",
+                label: "%"
+            });
+
+            g3 = new JustGage({
+                id: "g3",
+                value: "{{ pres }}",
+                valueFontColor: "yellow",
+                min: 0,
+                max: 150000,
+                title: "Pressure",
+                label: "Hpa"
+            });
+        });
+    </script>
+    
+    <h1>Graphs</h1>
+    <h1>Date and Time Range Selection</h1>
+    <form method="POST" action="" name="azureform">
+        {{ form.csrf_token }}
+        {{ form.start.label }} {{ form.start }}
+        {{ form.end.label }} {{ form.end }}
+        {{ form.submit() }}
+    </form>
+    
+    <div>
+
+    </div>
+    
+    <br>
+    <br>
+    <div>
+        <img src="{{url_for('graph_temp')}}" alt="Temperature">
+        <img src="{{url_for('graph_hum')}}" alt="Humidity">
+        <img src="{{url_for('plot_pres')}}" alt="Pressure">
+    </div>
+</body>
+
+</html>

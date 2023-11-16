@@ -4,7 +4,7 @@ import time
 import json
 
 # Connection to Azure
-iothub = "HostName=437407hub.azure-devices.net;DeviceId=437407-rasp;SharedAccessKey=BUOwJGVj5De/9v/gU0QAHDiUVQl83ZRTCAIoTByVKm4="
+iothub = "put your connection string here"
 
 def connect_to_azure():
     device = IoTHubDeviceClient.create_from_connection_string(iothub)
